@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analytics Test</title>
+
+  <link rel='stylesheet' href='/css/style.css' />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body ng-app="angularWorks"> 
+
+  <ul class="nav-ul">
+    <li class="nav-li"><a class="active" href="/index">Index</a></li>
+  </ul>
+  <br>
+
+  <br>
+  <input id="search_trip_id" style="height: 45px;" class="dropdownInput" class="form-control form-control-lg"
+    type="text" placeholder="Search trip ID">
+  <input type="date" class="dropdownInput" placeholder="From">
+
+  <input type="date" class="dropdownInput" placeholder="To">
+  <button id="download" class="dropdownInput" style="background-color: #EEEFF7; cursor: pointer;"> Download
+    <img src="/icons/download.svg" alt="" sizes="" srcset="" style="position: absolute;opacity: 0.3;margin-left: 36px;">
+  </button>
+  <button id="initiate_payment" style="background-color: #4285F4; color: white; cursor: pointer;" class="dropdownInput"
+    onclick="acceptPassword()"> Initiate Payment</button>
+  <br>
+  <br>
+  <br>
+
+
+
+  <ul class="responsive-table" style="padding-left: 0px;">
+      <li class="table-header" style="margin-bottom: 0px;">
+          <div class="col col-1">
+              <label class="container"> Trip ID
+                  <input type="checkbox" id="checkAll" >
+              <span class="checkmark_custom"></span>
+          </div>
+          <div class="col col-2">Driver ID</div>
+          <div class="col col-3">Name</div>
+          <div class="col col-4">Mobile Number</div>
+          <div class="col col-5">Status</div>        
+          <div class="col col-6">Trip Created</div>
+          <div class="col col-7">Amount</div>
+          <div class="col col-8">Method</div>
+          <div class="col col-9">Purpose</div>
+        </li>
+    
+  <!-- N HTML -->
+
+  <!-- The Trip Details Modal -->  ​
+  <div class="tripmodal" id="openTripModal">
+    <div class="tripmodal-content" style="width: 500px; height: 1100px; z-index: 9999; margin-left: 1350px;">
+      <br>
+      ​
+      <div>
+        ​
+        <span style="float: left; font-weight: bold;" class="hide" data-dismiss="openModal">×</span>
+      </div>
+
+      <div class="driver-details" id="driverDetails" style="float: left; height: 10%; width: 100%;">
+        <p id=tripDetails style=" opacity: 0.5; color: #25233A; font-size: 12px; line-height: 15px; "> DRIVER DETAILS
+        </p>
+        ​
+        <p><span class="driver-name" id=tripDetails style="  font-size: 14px;"> Shoib Mahmud </span></p>
+        <p><span class="driver-phone" id=tripDetails style="  font-size: 14px;">01829193637</span></p>
+
+      </div>
+      ​
+      <hr style="margin-top: 60px; margin-bottom: 0px;">
+      ​
+      <div class="location-details" id="locationDetails" style="margin-top: 5px; float: left; width: 100%;">
+        <p id=tripDetails style=" opacity: 0.5; color: #25233A; font-size: 12px; line-height: 15px; "> LOCATION DETAILS
+        </p>
+        ​
+        <p><span class="trip-ID" id=tripDetails style="  font-size: 14px;"> Trip ID:</span>
+          <span class="trip-ID" id=tripDetails style="display: inline;  font-size: 14px;"> 423123 </span>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+          <span class="trip-created" id=tripDetails style="display: inline;  font-size: 14px;;"> Trip Created:</span>
+          <span class="trip-created" id=tripDetails style="display: inline;  font-size: 14px;;">5.45PM, 14 Jan,
+            2019</span>
+        </p>
+
+        <div>
+          <div style=" display: inline-block;  width:15%;">
+            <p><span class="trip-load" id=tripDetails style="  font-size: 14px;padding-top: 4px;"> Load:</span></p>
+          </div>
+          <div style=" display: inline-block; width:70%; vertical-align: top; margin-top: -4px;">
+            <div>
+              <p><span class="trip-load" style="  font-size: 14px; line-height: initial;">DIT Project, Merul Badda,
+                  Dhaka 5.45PM, 14 Jan, 2019 Merul Badda, Dhaka 5.45PM, 14 Jan, 2019 </span></p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style=" display: inline-block;  width:15%; vertical-align: top;">
+            <p><span class="trip-unload" id=tripDetails style="  font-size: 14px;padding-top: 4px;"> Unload:</span></p>
+          </div>
+          <div style=" display: inline-block; width:70%;  margin-top: -4px;">
+            <div>
+              <p><span class="trip-unload" style="  font-size: 14px;line-height: initial; ">DIT Project, Merul Badda,
+                  Dhaka 5.45PM, 14 Jan, 2019 Merul Badda, Dhaka 5.45PM, 14 Jan, 2019 </span></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      ​
+      <hr style="margin-top: 35px; margin-bottom: 0px;">
+      ​
+      <div class="breakdown" id="breakdown" style="float: left; height: 16%; width: 100%;">
+
+        <div style="text-align: center;">
+          <p><b>
+              <span id=tripDetails style="align-content: center;">Driver’s Earning</span></b></p>
+          <p>
+            <span id=tripDetails style="align-content: center; font-weight: bold; font-size: 22px;">৳ </span>
+            <span style="align-content: center; font-weight: bold; font-size: 24px;">556</span>
+          </p>
+          ​
+        </div>
+        <div>
+          ​
+          <p id=tripDetails style="padding-left: 20px; opacity: 0.5; color: #25233A; font-size: 12px;"> BREAKDOWN </p>
+          ​
+          <div>
+            <div style="display: inline-block;">
+              <p><span class="trip-amount" id=tripDetails style="  font-size: 14px;"> Trip Amount:</span></p>
+              <p><span class="trip-discount" id=tripDetails style="  font-size: 14px;;"> Trip Discount:</span></p>
+            </div>
+
+            <div style="display: inline-block;">
+              <p><span class="trip-amount" id=tripDetails style="  font-size: 14px;">৳ </span>
+                <span class="trip-amount" style="  font-size: 14px;">556 </span></p>
+              ​
+              <p><span class="trip-discount" id=tripDetails style="  font-size: 14px;;">৳ </span>
+                <span class="trip-discount" style="  font-size: 14px;;">0</span></p>
+            </div>
+          </div>
+          ​
+        </div>
+
+      </div>
+      ​
+      <hr style="margin-top: 35px; margin-bottom: 0px;">
+      ​
+      ​
+      ​
+      <div class="payment-method" id="paymentMethod" style="margin-top: 7px; float: left; height: 10%; width: 100%;">
+        <p id=tripDetails style=" opacity: 0.5; color: #25233A; font-size: 12px; "> PAYMENT METHOD </p>
+        ​
+        <div>
+          <div style="display: inline-block;">
+            <p><span class="bkash" id=tripDetails style="  font-size: 14px;"> bKash:</span></p>
+            <p><span class="bank" id=tripDetails style="  font-size: 14px;;"> EBL:</span></p>
+          </div>
+
+          <div style="display: inline-block;">
+            <p> <span class="bkash" id=tripDetails style="  font-size: 14px;">01829193637</span></p>
+            <p><span class="bank" id=tripDetails style="  font-size: 14px;;">102101012345</span></p>
+          </div>
+        </div>
+
+      </div>
+      ​
+      <hr style="margin-top: 35px; margin-bottom: 0px;">
+      ​
+      <div class="transection-details" id="transectionDetails"
+        style="margin-top: 5px; float: left; height: 10%; width: 100%;">
+        <p id=tripDetails style=" opacity: 0.5; color: #25233A; font-size: 12px; line-height: 15px; "> TRANSACTION
+          DETAILS </p>
+        ​
+        <div>
+          <div style="display: inline-block;">
+            <p><span class="trans-id" id=tripDetails style="  font-size: 14px;"> Trans ID:</span></p>
+            <p><span class="trans-time" id=tripDetails style="  font-size: 14px;;"> Trans Time:</span></p>
+          </div>
+
+          <div style="display: inline-block;">
+            <p><span class="trans-id" id=tripDetails style="  font-size: 14px;">1234567890</span></p>
+            <p><span class="trans-time" id=tripDetails style="  font-size: 14px;;">9.30PM, 18 January 2019 </span></p>
+          </div>
+        </div>
+        ​
+      </div>
+      ​
+      <hr style="margin-top: 35px; margin-bottom: 0px;">
+      ​
+      <div class="approval" id="approval" style="margin-top: 5px; float: left; height: 10%; width: 100%;">
+        <p id=tripDetails style=" opacity: 0.5; color: #25233A; font-size: 12px; line-height: 15px; "> APPROVAL </p>
+        ​
+        <div>
+          <div style="display: inline-block;">
+            <p><span class="requested" id=tripDetails style="  font-size: 14px;"> Requested By:</span></p>
+            <p><span class="approved" id=tripDetails style="  font-size: 14px;;"> Approved By:</span></p>
+          </div>
+
+          <div style="display: inline-block;">
+            <p><span class="requested" id=tripDetails style="  font-size: 14px;">1234567890 </span></p>
+            <p> <span class="approved" id=tripDetails style="  font-size: 14px;;">9.30PM, 18 January 2019 </span></p>
+          </div>
+        </div>
+        ​
+      </div>
+      ​
+      <hr style="margin-top: 35px; margin-bottom: 0px;">
+      ​
+      <div class="status" id="status" style="margin-top: 5px; float: left; height: 7%; width: 100%;">
+        <p id=tripDetails style=" opacity: 0.5; color: #25233A; font-size: 12px; line-height: 15px; "> STATUS </p>
+        ​
+        <p><span class="payment-status" id=tripDetails style="  font-size: 14px;">Paid </span></p>
+
+      </div>
+      ​
+      <hr style="margin-top: 35px; margin-bottom: 0px;">
+      ​
+      <div class="shipper-details" id="shipperDetails" style="margin-top: 5px; float: left; width: 100%;">
+        <p id=tripDetails style=" opacity: 0.5; color: #25233A; font-size: 12px; line-height: 15px; "> SHIPPER INFO </p>
+        ​
+        <p><span class="shipper-name" id=tripDetails style="  font-size: 14px;"> Shoib Mahmud </span></p>
+        <p><span class="shipper-phone" id=tripDetails style="  font-size: 14px;;"> 01829193637 </span></p>
+
+      </div>
+
+
+    </div>
+  </div>
+
+</html>
+
+
+</body>
